@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='icon.ico')}}">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
@@ -15,7 +18,7 @@
         <nav class="navbar navbar-light bg-light justify-content-between">
           <a class="navbar-brand" href="#">
           <img src="{{url_for('static',filename='icon.ico')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-          Blog Flask
+          Flask Blog
           </a>
 
           <form class="form-inline">
@@ -27,13 +30,9 @@
 
     {% endblock %}
 
-
-    {% block content %}
       <div class="container">
-        <h1>CREATE YOUR OWN POSTS</h1>
+        <h1>Create your own posts</h1>
       </div>
-    {% endblock %}
-
 
     <div class="container">
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -66,14 +65,63 @@
           </div>
     </div>
 
+    {% block contend %}
+    <article class="">
+      <div class="container">
+        <h2>Start creating a post</h2>
+          <p>
+            <h3 class="quotes">You can write about daily life, music, art, science, sports, whatever you want.</h3>
+            <h3 class="quotes">Comment on other users' posts, give them a thumbs up</h3>
+            <h3 class="quotes">You can edit or delete your personal posts.</h3>
+          </p>
+      </div>
+    </article>
+    <script type="text/javascript">
+    (function() {
+
+    var quotes = $(".quotes");
+    var quoteIndex = -1;
+
+    function showNextQuote() {
+      ++quoteIndex;
+      quotes.eq(quoteIndex % quotes.length)
+        .fadeIn(2000)
+        .delay(2000)
+        .fadeOut(2000, showNextQuote);
+    }
+
+    showNextQuote();
+
+    })();
+    </script>
+
+    <!--Cards -->
+    <article>
+      <div class="container">
+        <div class="card border-dark mb-3">
+          <div class="card-header">Header</div>
+          <div class="card-body text-dark">
+            <h5 class="card-title">Dark card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    {% endblock %}
+
     {% block footer %}
     <!-- Footer -->
     <div class="container">
       <footer class="page-footer font-small blue">
-
-        <!-- Copyright -->
+        <!--icon-->
+        <div class="footer-copyright text-center py-3">
+          <a class="" href="https://github.com/lsarteaga">
+          <img src="{{url_for('static',filename='img/github.ico')}}" width="40" height="40" class="d-inline-block align-top" alt="">
+          </a>
+        </div>
         <div class="footer-copyright text-center py-3">© 2020 Copyright:
-          <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+          <a href="https://github.com/lsarteaga"> lsarteaga developer</a>
         </div>
         <!-- Copyright -->
 

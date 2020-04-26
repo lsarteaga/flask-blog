@@ -1,8 +1,28 @@
 h1 {
+  padding: 35px;
   text-align: center;
   text-emphasis-color: black;
 }
 
+h2 {
+  padding-top: 35px;
+  padding-bottom: 35px;
+  text-align: left;
+}
+
+h3{
+  text-align: center;
+}
+
 footer {
   color: black;
+}
+
+.quotes {
+  display: none;
+}
+
+article {
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
