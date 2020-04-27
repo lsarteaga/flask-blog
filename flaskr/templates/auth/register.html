@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+register
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block contend %}
+  <div class="formwrapper">
+    <h2 class="title">Register</h2>
+    <form class="" action="" method="post">
+      <div class="form-field">
+        {{ form.username.label }}
+        {{ form.username(size=20) }}
+      </div>
+      <div class="form-field">
+        {{ form.password.label }}
+        {{ form.password }}
+      </div>
+      {{ form.submit }}
+    </form>
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
