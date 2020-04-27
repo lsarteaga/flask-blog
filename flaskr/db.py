@@ -5,7 +5,17 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 
 def init_db():
-    pass
+    db =  get_db()
+
+    with current_app.open_resource('schema.sql') as f:
+        db.executescript(f.read().decode('utf8'))
+
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    """creating the database"""
+    init_db()
+    click.echo('Initialized the database.')
 
 def get_db():
     if 'db' not in g:
@@ -22,5 +32,6 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
-def init_app():
-    pass
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)

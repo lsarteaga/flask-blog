@@ -17,4 +17,7 @@ def create_app():
     def hello():
         return render_template('base.html')
 
+    from . import db
+    db.init_app(app)
+
     return app
