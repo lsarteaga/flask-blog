@@ -1,28 +1,61 @@
-{% extends 'base.html' %}
-{% block title %}
-register
-{% endblock %}
+<!--imports-->
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+<!--end imports-->
 
-{% block header %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='style.css')}}">
+<link rel="shortcut icon" href="{{url_for('static',filename='icon.ico')}}">
 {% endblock %}
+{% block title %}Register{% endblock %}
 
-{% block contend %}
-  <div class="formwrapper">
-    <h2 class="title">Register</h2>
-    <form class="" action="" method="post">
-      <div class="form-field">
-        {{ form.username.label }}
-        {{ form.username(size=20) }}
-      </div>
-      <div class="form-field">
-        {{ form.password.label }}
-        {{ form.password }}
-      </div>
-      {{ form.submit }}
-    </form>
+
+<!--body-->
+{% block body %}
+
+<!--content-->
+{% block content%}
+<div class="container">
+  <div class="row" id="row_register">
+    <div class="col-sm-4">
+      <!--column without functionality-->
+    </div>
+    <div class="col-sm-4">
+      <form action="" method="POST" id="form_register">
+
+        <div class="form-group">
+          {% for message in get_flashed_messages() %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          <h1>Register</h1>
+        </div>
+        {{ form.csrf_token }}
+        <div class="form-group">
+          {{ wtf.form_field(form.username) }}
+        </div>
+        <div class="form-group">
+          {{ wtf.form_field(form.password) }}
+        </div>
+        <div class="form-group">
+          {{ wtf.form_field(form.confirm_pwd) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <!--column without functionality-->
+    </div>
   </div>
+</div>
+{% endblock %}
+<!--end content-->
 
 {% endblock %}
-
-{% block footer %}
-{% endblock %}
+<!--end body-->

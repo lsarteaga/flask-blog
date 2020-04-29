@@ -5,13 +5,13 @@ DROP TABLE IF EXISTS commentary;
 DROP TABLE IF EXISTS commentary_features;
 
 CREATE TABLE user(
-  id_user INTEGER PRIMARY KEY,
+  id_user INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL
 );
 
 CREATE TABLE post(
-  id_post INTEGER PRIMARY KEY,
+  id_post INTEGER PRIMARY KEY AUTOINCREMENT,
   id_user INTEGER NOT NULL,
   title TEXT NOT NULL,
   body TEXT NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE post(
 );
 
 CREATE TABLE post_features(
-  id_post_feature INTEGER PRIMARY KEY,
+  id_post_feature INTEGER PRIMARY KEY AUTOINCREMENT,
   id_post INTEGER NOT NULL,
   id_user INTEGER NOT NULL,
   like_p INTEGER DEFAULT 0,
@@ -30,7 +30,7 @@ CREATE UNIQUE INDEX idx_post ON post_features (id_user);
 
 
 CREATE TABLE commentary(
-  id_commentary INTEGER PRIMARY KEY,
+  id_commentary INTEGER PRIMARY KEY AUTOINCREMENT,
   id_post INTEGER NOT NULL,
   id_user INTEGER NOT NULL,
   contend TEXT NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE commentary(
 );
 
 CREATE TABLE commentary_features(
-  id_commentary_features INTEGER PRIMARY KEY,
+  id_commentary_features INTEGER PRIMARY KEY AUTOINCREMENT,
   id_commentary INTEGER NOT NULL,
   id_user INTEGER NOT NULL,
   like_c INTEGER DEFAULT 0,

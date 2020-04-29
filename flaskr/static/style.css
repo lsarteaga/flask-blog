@@ -26,3 +26,11 @@ article {
   padding-top: 20px;
   padding-bottom: 30px;
 }
+#row_register {
+  padding-top: 100px
+}
+#form_register {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 30px;
+}
