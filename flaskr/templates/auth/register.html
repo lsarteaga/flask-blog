@@ -28,7 +28,8 @@
         <div class="form-group">
           {% for message in get_flashed_messages() %}
           <div class="alert alert-danger">
-            {{ message }}
+            {{ message }} or go to
+            <a href="{{url_for('auth.login')}}">Login</a> page.
           </div>
           {% endfor %}
         </div>
@@ -41,7 +42,7 @@
           {{ wtf.form_field(form.username) }}
         </div>
         <div class="form-group">
-          {{ wtf.form_field(form.password) }}
+          {{ wtf.form_field(form.password)}}
         </div>
         <div class="form-group">
           {{ wtf.form_field(form.confirm_pwd) }}
