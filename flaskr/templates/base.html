@@ -16,14 +16,14 @@
 
       <div class="container">
         <nav class="navbar navbar-light bg-light justify-content-between">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="{{url_for('index')}}">
           <img src="{{url_for('static',filename='icon.ico')}}" width="30" height="30" class="d-inline-block align-top" alt="">
           Flask Blog
           </a>
 
           <form class="form-inline">
             <a href="{{url_for('auth.register')}}" class="btn btn-outline-dark mr-sm-2">Register</a>
-            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" name="">Log in</button>
+            <a href="{{url_for('auth.login')}}" class="btn btn-outline-dark my-2 my-sm-0">Login</a>
           </form>
         </nav>
       </div>

@@ -5,8 +5,8 @@ from flask import (
 )
 ####
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, EqualTo, Optional
 ####
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
@@ -44,12 +44,28 @@ class RegistrationForm(FlaskForm):
 
 @bp.route('/login',methods=['GET','POST'])
 def login():
+    form = LogginForm()
+    if form.validate_on_submit():
+        db = get_db()
+        error = None
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?',(form.username.data,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Username {} is not registered yet,'.format(form.username.data)
+        elif not check_password_hash(user['password'], form.password.data):
+            error = 'Incorrect password'
+
+        if error is None:
+            return redirect(url_for('index'))
+
+        flash(error)
 
 
-
-
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form=form)
 
 class LogginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6,message='Password too short')], description = 'Password must at least 6 characters')
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember = BooleanField('Remember me', validators = [Optional()])
