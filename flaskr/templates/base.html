@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
   </head>
   <body>
-    {% block header %}
 
       <div class="container">
         <nav class="navbar navbar-light bg-light justify-content-between">
@@ -20,20 +19,29 @@
           <img src="{{url_for('static',filename='icon.ico')}}" width="30" height="30" class="d-inline-block align-top" alt="">
           Flask Blog
           </a>
-
+          {% if g.user %}
+          <form class="form-inline">
+            <a href="#" class="btn btn-outline-dark mr-sm-2">Your posts</a>
+            <a href="{{url_for('auth.logout')}}" class="btn btn-outline-dark my-2 my-sm-0">Log Out</a>
+          </form>
+          {% else %}
           <form class="form-inline">
             <a href="{{url_for('auth.register')}}" class="btn btn-outline-dark mr-sm-2">Register</a>
             <a href="{{url_for('auth.login')}}" class="btn btn-outline-dark my-2 my-sm-0">Login</a>
           </form>
+          {% endif %}
         </nav>
       </div>
 
-    {% endblock %}
-
       <div class="container">
+        {% if g.user %}
+        <h1>Hello, {{ g.user['username']}}</h1>
+        {% else %}
         <h1>Create your own posts</h1>
+        {% endif %}
       </div>
 
+    {% block carousel %}
     <div class="container">
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -64,18 +72,24 @@
             </a>
           </div>
     </div>
+    {% endblock %}
 
-    {% block contend %}
-    <article class="">
-      <div class="container">
-        <h2>Start creating a post</h2>
-          <p>
-            <h3 class="quotes">You can write about daily life, music, art, science, sports, whatever you want.</h3>
-            <h3 class="quotes">Comment on other users' posts, give them a thumbs up</h3>
-            <h3 class="quotes">You can edit or delete your personal posts.</h3>
-          </p>
+
+    {% block content %}
+
+    <div class="container text-center">
+      <div class="" style="padding-top:50px;">
+        <a href="{{url_for('auth.register')}}" class="btn btn-outline-dark mr-sm-2 btn-lg">Start creating a post</a>
       </div>
-    </article>
+      <div class="" style="padding-top:30px; padding-bottom:40px;">
+        <p>
+          <h3 class="quotes">You can write about daily life, music, art, science, sports, whatever you want.</h3>
+          <h3 class="quotes">Comment on other users' posts, give them a thumbs up</h3>
+          <h3 class="quotes">You can edit or delete your personal posts.</h3>
+        </p>
+      </div>
+    </div>
+
     <script type="text/javascript">
     (function() {
 
@@ -94,6 +108,7 @@
 
     })();
     </script>
+    {% endblock %}
 
     <!--Cards -->
     <article>
@@ -108,9 +123,6 @@
       </div>
     </article>
 
-    {% endblock %}
-
-    {% block footer %}
     <!-- Footer -->
     <div class="container">
       <footer class="page-footer font-small blue">
@@ -127,7 +139,6 @@
 
       </footer>
     </div>
-    {% endblock %}
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -62,7 +62,7 @@ def login():
             session.clear()
             session['id_user'] = user['id_user']
             ## in development .....
-            return redirect(url_for('index'))
+            return redirect(url_for('blog.main'))
 
         flash(error)
 
@@ -86,6 +86,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
+    ###### development
     return redirect(url_for('index'))
 
 def login_required(view):
