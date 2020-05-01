@@ -2,5 +2,37 @@
 {% block title %}Blog{% endblock %}
 
 
-{% block carousel%}{% endblock%}
+{% block carousel %}{% endblock %}
 {% block content %}{% endblock %}
+
+{% block btn_crear %}
+<div class="container text-center">
+  <a href="{{url_for('blog.create')}}" class="btn btn-outline-dark mr-sm-2 btn-lg">New Post</a>
+</div>
+{% endblock %}
+
+{% block cards %}
+{% for post in posts %}
+<article>
+  <div class="container">
+    <div class="card border-dark mb-3">
+      <div class="card-header"> <i>By {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</i></div>
+
+      <div class="card-body text-dark">
+        <h5 class="card-title">{{ post['title'] }}</h5>
+        <p class="card-text">{{ post['body'] }}</p>
+        <div class="text-right">
+          {% if g.user['id_user'] == post['id_user']%}
+          <a href="#" class="btn btn-outline-dark">Edit</a>
+          {% endif %}
+        </div>
+      </div>
+      {% if not loop.last %}
+      <hr>
+      {% endif %}
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+{% endblock %}

@@ -41,6 +41,9 @@
         {% endif %}
       </div>
 
+    {% block btn_crear %}
+    {% endblock %}
+
     {% block carousel %}
     <div class="container">
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -110,14 +113,15 @@
     </script>
     {% endblock %}
 
+    {% block cards %}{% endblock %}
     <!--Cards -->
     <article>
       <div class="container">
         <div class="card border-dark mb-3">
-          <div class="card-header">Header</div>
+          <div class="card-header"> <i>By Admin on 2020-04-30</i> </div>
           <div class="card-body text-dark">
-            <h5 class="card-title">Dark card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">Welcome!</h5>
+            <p class="card-text">You are welcome to post your ideas, opinions, experiencies, or anything :)</p>
           </div>
         </div>
       </div>
