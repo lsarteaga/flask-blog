@@ -6,7 +6,7 @@
 {% block content %}{% endblock %}
 
 {% block btn_crear %}
-<div class="container text-center">
+<div class="container text-center" style="padding-bottom:30px;">
   <a href="{{url_for('blog.create')}}" class="btn btn-outline-dark mr-sm-2 btn-lg">New Post</a>
 </div>
 {% endblock %}
@@ -23,7 +23,8 @@
         <p class="card-text">{{ post['body'] }}</p>
         <div class="text-right">
           {% if g.user['id_user'] == post['id_user']%}
-          <a href="#" class="btn btn-outline-dark">Edit</a>
+          <a href="{{url_for('blog.edit', id=post['id_post'])}}" class="btn btn-outline-dark">Edit</a>
+          <a href="{{url_for('blog.delete', id=post['id_post'])}}" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</a>
           {% endif %}
         </div>
       </div>

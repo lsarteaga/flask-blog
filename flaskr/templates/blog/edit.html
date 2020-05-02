@@ -9,6 +9,7 @@
 {% endblock %}
 {% block title %}Register{% endblock %}
 
+
 {% block body %}
 
 <!--content-->
@@ -22,19 +23,17 @@
       <form action="" method="POST" id="form_register">
 
         <div class="form-group">
-          <h1>New Post</h1>
+          <h1>Edit Post</h1>
         </div>
         {{ form.csrf_token }}
         <div class="form-group">
-          {{ wtf.form_field(form.title) }}
+          {{ wtf.form_field(form.title)}}
         </div>
         <div class="form-group">
           {{ wtf.form_field(form.body)}}
         </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Edit</button>
         <a href="{{ url_for('blog.main') }}" class="btn btn-danger">Cancel</a>
-
       </form>
     </div>
     <div class="col-sm-4">

@@ -33,7 +33,7 @@ def register():
                 (form.username.data, generate_password_hash(form.password.data))
             )
             db.commit()
-            return redirect('/')
+            return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', form=form)
 

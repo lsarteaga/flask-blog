@@ -13,6 +13,7 @@ from wtforms.validators import DataRequired, Length, EqualTo, Optional
 bp = Blueprint('blog',__name__,url_prefix='/blog')
 
 @bp.route('/')
+
 def main():
     db = get_db()
     posts = db.execute(
@@ -23,6 +24,7 @@ def main():
     return render_template('blog/main.html', posts=posts)
 
 @bp.route('/create', methods=['GET','POST'])
+@login_required
 def create():
     form =  CreateForm()
     if form.validate_on_submit():
@@ -39,3 +41,47 @@ def create():
 class CreateForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     body = TextAreaField('Content', validators=[DataRequired()])
+
+def get_post(id, check_author=True):
+    post = get_db().execute(
+        'SELECT id_post, title, body, created, p.id_user, username'
+        ' FROM post p JOIN user u ON p.id_user = u.id_user'
+        ' WHERE p.id_post = ?',(id,)
+    ).fetchone()
+
+    if post is None:
+        abort(404, "Post id {0} doesn't exist.".format(id))
+
+    if check_author and post['id_user'] != g.user['id_user']:
+        abort(403)
+
+    return post
+
+
+@bp.route('/<int:id>/edit', methods=['GET','POST'])
+@login_required
+def edit(id):
+    post = get_post(id)
+    form = CreateForm()
+    if form.validate_on_submit():
+        db = get_db()
+        db.execute(
+            'UPDATE post SET title = ?, body = ?'
+            ' WHERE id_post = ?',(form.title.data, form.body.data, id)
+        )
+        db.commit()
+        return redirect(url_for('blog.main'))
+
+    form.title.data = post['title']
+    form.body.data = post['body']
+
+    return render_template('blog/edit.html', form=form, post=post)
+
+@bp.route('<int:id>/delete')
+def delete(id):
+    db = get_db()
+    db.execute(
+        'DELETE FROM post WHERE id_post = ?',(id,)
+    )
+    db.commit()
+    return redirect(url_for('blog.main'))
