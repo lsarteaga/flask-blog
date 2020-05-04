@@ -21,7 +21,7 @@
           </a>
           {% if g.user %}
           <form class="form-inline">
-            <a href="#" class="btn btn-outline-dark mr-sm-2">Your posts</a>
+            <a href="{{url_for('blog.user_post', id=g.user['id_user'])}}" class="btn btn-outline-dark mr-sm-2">Your Posts</a>
             <a href="{{url_for('auth.logout')}}" class="btn btn-outline-dark my-2 my-sm-0">Log Out</a>
           </form>
           {% else %}
@@ -82,7 +82,11 @@
 
     <div class="container text-center">
       <div class="" style="padding-top:50px;">
+        {% if g.user %}
+        <a href="{{url_for('blog.main')}}" class="btn btn-outline-dark mr-sm-2 btn-lg">Make a Post</a>
+        {% else %}
         <a href="{{url_for('auth.register')}}" class="btn btn-outline-dark mr-sm-2 btn-lg">Start creating a post</a>
+        {% endif %}
       </div>
       <div class="" style="padding-top:30px; padding-bottom:40px;">
         <p>

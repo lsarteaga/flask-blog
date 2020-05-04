@@ -13,7 +13,6 @@ from wtforms.validators import DataRequired, Length, EqualTo, Optional
 bp = Blueprint('blog',__name__,url_prefix='/blog')
 
 @bp.route('/')
-
 def main():
     db = get_db()
     posts = db.execute(
@@ -85,3 +84,15 @@ def delete(id):
     )
     db.commit()
     return redirect(url_for('blog.main'))
+
+@bp.route('<int:id>/user')
+@login_required
+def user_post(id):
+    db = get_db()
+    error = None
+    posts = db.execute(
+        'SELECT id_post, title, body, created, p.id_user , username FROM post p JOIN user u ON'
+        ' p.id_user = u.id_user WHERE p.id_user = ? ORDER BY created DESC',(id,)
+    ).fetchall()
+
+    return render_template('user/user_post.html', posts=posts)
